@@ -10,7 +10,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $category = Category::where('user_id', Auth::id())->get;
+        $user = Auth::id();
+        $category = Category::where('user_id', $user)->get();
 
         return response()->json([
             'message' => "categories retrieved successfully",
@@ -21,13 +22,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => Auth::id(),
             'name' => 'required|string',
         ]);
 
         $category = Category::create([
+            'user_id' => Auth::id(),
             'name' => $request->name,
-            'type' => $request->type
         ]);
 
         return response()->json([
@@ -39,7 +39,9 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::id();
-        $category = Category::where('user_id', $user)->findOrFail($id);
+        $category = Category::where('user_id', $user)
+            ->where('id', $id)
+            ->firstOrFail();
 
         $validated = $request->validate([
             'name' => 'sometimes|string',
@@ -50,17 +52,20 @@ class CategoryController extends Controller
         return response()->json([
             'message' => 'Category updated successfully',
             'data' => $category
-        ], 201);
+        ], 200);
     }
 
     public function destroy($id)
     {
         $user = Auth::id();
-        $category = Category::where('user_id', $user)->findOrFail($id);
+        $category = Category::where('user_id', $user)
+            ->where('id', $id)
+            ->firstOrFail();
+
         $category->delete();
 
         return response()->json([
             'message' => 'Category deleted successfully'
-        ]);
+        ], 200);
     }
 }
