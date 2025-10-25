@@ -23,7 +23,6 @@ class CategoryController extends Controller
         $request->validate([
             'user_id' => Auth::id(),
             'name' => 'required|string',
-            'type' => 'required|in:income,expense'
         ]);
 
         $category = Category::create([
@@ -44,7 +43,6 @@ class CategoryController extends Controller
 
         $validated = $request->validate([
             'name' => 'sometimes|string',
-            'type' => 'sometimes|in:income,expense '
         ]);
 
         $category->update($validated);
