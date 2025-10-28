@@ -52,11 +52,13 @@ php artisan migrate
 To enable API authentication with Sanctum, you need to install Sanctum and set up the middleware.
 
 Run the following:
+
 composer require laravel/sanctum
 php artisan migrate
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
 Add Sanctum middleware to api middleware group within your app/Http/Kernel.php file:
+
 'api' => [
     \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
     'throttle:api',
