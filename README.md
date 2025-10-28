@@ -21,7 +21,7 @@ A simple API built with Laravel for tracking income and expenses. This API allow
 Follow these steps to get your development environment set up.
 
 ### 1. Clone the Repository
-```bash
+bash
 
 git clone https://github.com/DuncanTheDev/Expense-tracker-api.git
 cd Expense-tracker-api
