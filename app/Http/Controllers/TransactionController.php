@@ -40,9 +40,9 @@ class TransactionController extends Controller
         $user = Auth::id();
         $request->validate([
             'category_id' => 'required|exists:categories,id',
-            'amount' => 'required|decimal:10,2',
+            'amount' => 'required|numeric|min:0',
             'type' => 'required|in:income,expense',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'transaction_date' => 'required|date'
         ]);
 
